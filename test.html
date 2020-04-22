@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js 图片转base64方式</title>
+</head>
+<body>
+<p id="container2"></p>
+<img src="http://127.0.0.1/test-image/v0/b/hhjhhhhh-68fa3.appspot.com/o/EVD.PNG?alt=media&token=50bfc886-f85d-42a0-a109-ea59311acbd4">
+<script src="https://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    let imgSrc = "http://127.0.0.1/test-image/v0/b/hhjhhhhh-68fa3.appspot.com/o/EVD.PNG?alt=media&token=50bfc886-f85d-42a0-a109-ea59311acbd4";
+    //width、height调用时传入具体像素值，控制大小 ,不传则默认图像大小
+    // function getBase64Image(img, width, height) {
+    //     var canvas = document.createElement("canvas");
+    //     canvas.width = width ? width : img.width;
+    //     canvas.height = height ? height : img.height;
+    //     var ctx = canvas.getContext("2d");
+    //     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    //     var dataURL = canvas.toDataURL();
+    //     return dataURL;
+    // }
+    // function getCanvasBase64(img) {
+    //     var image = new Image();
+    //     //至关重要
+    //     image.crossOrigin = '';
+    //     image.src = img;
+    //     //至关重要
+    //     var deferred = $.Deferred();
+    //     if (img) {
+    //         image.onload = function () {
+    //             deferred.resolve(getBase64Image(image));//将base64传给done上传处理
+    //             document.getElementById("container2").appendChild(image);
+    //         }
+    //         return deferred.promise();//问题要让onload完成后再return sessionStorage['imgTest']
+    //     }
+    // }
+    // getCanvasBase64(imgSrc)
+    //     .then(function (base64) {
+    //         console.log("方式二》》》》》》》》》",base64);
+    //     }, function (err) {
+    //         console.log(err);
+    //     });
+    // var getBase64ByUrl = function(src, callback, outputFormat) {
+    //     var xhr = new XMLHttpRequest();
+    //     xhr.open('GET', src, true);
+    //
+    //     xhr.responseType = 'arraybuffer';
+    //
+    //     xhr.onload = function(e) {
+    //         if (xhr.status == 200) {
+    //             var uInt8Array = new Uint8Array(xhr.response);
+    //             var i = uInt8Array.length;
+    //             var binaryString = new Array(i);
+    //             while (i--) {
+    //                 binaryString[i] = String.fromCharCode(uInt8Array[i]);
+    //             }
+    //             var data = binaryString.join('');
+    //             var base64 = window.btoa(data);
+    //             var dataUrl = "data:" + (outputFormat || "image/png") + ";base64," + base64;
+    //             callback.call(this, dataUrl);
+    //         }
+    //     };
+    //
+    //     xhr.send();
+    // }
+    //
+    //
+    // getBase64ByUrl(imgSrc, function(url) {
+    //     console.log(url)
+    // });
+    function convertImgToBase64(url, callback, outputFormat) {
+        var canvas = document.createElement('CANVAS'),
+            ctx = canvas.getContext('2d'),
+            img = new Image;
+        img.crossOrigin = 'Anonymous';
+        img.onload = function() {
+            canvas.height = img.height;
+            canvas.width = img.width;
+            ctx.drawImage(img, 0, 0);
+            var dataURL = canvas.toDataURL(outputFormat || 'image/png');
+            callback.call(this, dataURL);
+            canvas = null;
+        };
+        img.src = url;
+    }
+
+
+    convertImgToBase64(imgSrc, function(base64Img) {
+        // Base64DataURL
+        console.log(base64Img);
+        // $("#code_img").attr('src', base64Img);
+    });
+</script>
+</body>
+</html>

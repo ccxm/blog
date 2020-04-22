@@ -1,0 +1,116 @@
+$default-background: #f7f7f7;
+$max-width: 85%;
+
+$default-font-family: "Monda", "PingFang SC", "Microsoft YaHei", sans-serif;
+$border-shadow: 0 4px 10px rgba(0, 0, 0, 0.05), 0 0 1px rgba(0, 0, 0, 0.1);
+
+html {
+  background-color: #f7f7f7;
+  font-size: 14px;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  min-width: 300px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  text-rendering: optimizeLegibility;
+  text-size-adjust: 100%;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: $default-font-family;
+}
+
+.c-container {
+  width: $max-width;
+}
+
+.x-center {
+  display: flex;
+  justify-content: center;
+}
+
+.y-center {
+  display: flex;
+  align-items: center;
+}
+
+//垂直方向居中
+.yx-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.xy-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.y-center__between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.y-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.default-hover {
+  &:hover {
+    background-color: #deeafb !important;
+  }
+}
+
+.border-shadow {
+  box-shadow: $border-shadow;
+}
+
+.card {
+  box-shadow: $border-shadow;
+  color: #4a4a4a;
+  max-width: 100%;
+  border-radius: 3px;
+  position: relative;
+
+  &:hover {
+    background-color: #deeafb !important;
+  }
+}
+
+.small-card {
+  @extend .card;
+  width: 90%;
+  background: $default-background;
+  font-family: Monda;
+
+  .small-card-content {
+    padding: 21px;
+
+    .small-content-title {
+      color: #6a6a6a;
+      font-size: 12px;
+      display: block;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+    }
+  }
+}
+
+.clear-both {
+  &:after {
+    content: ".";
+    display: block;
+    clear: both;
+    /* height:0;和overflow:hidden;是为了解决IE兼容的问题 */
+    height: 0;
+    overflow: hidden;
+    /* visibility:hidden;是为了去除content中的文字 */
+    visibility: hidden;
+  }
+}
