@@ -2,13 +2,13 @@
     <div class="small-card">
         <div class="small-card-content">
             <span class="small-content-title">最新文章</span>
-            <div v-for="item in 4" :key="item">
+            <div v-for="(item,key) in articleList" :key="key">
                 <div class="article-item">
-                    <span>2020-04-10</span>
-                    <span>mysql最大长连接问题mysql最大长连接问题</span>
+                    <span>{{item.createdAt | formatDate}}</span>
+                    <span @click="selectFile(item)" class="file-name">{{item.fileName}}</span>
                     <div class="y-center">
                         <i class="fas fa-folder-open has-text-grey"></i>
-                        <span>数据库/mysql</span>
+                        <span>{{item.parentFolderName}}</span>
                     </div>
                 </div>
             </div>
@@ -18,7 +18,60 @@
 
 <script>
     export default {
-        name: "LastArticle"
+        name: "LastArticle",
+        data() {
+            return {
+                articleList: []
+            }
+        },
+        methods: {
+            getArticleList() {
+                return new Promise(resolve => {
+                    this.$api.getLastArticleList().then(res => {
+                        this.articleList = res.lastArticleList
+                        resolve()
+                    })
+                })
+            },
+            getParentFolderName(folderList,folderId, temp = []) {
+                for(let i = 0,len = folderList.length;i < len;i++) {
+                    if(folderList[i].folderId === folderId) {
+                        if(temp.length < 2) {
+                            temp.unshift(folderList[i].folderName)
+                        }
+                        if(folderList[i].preId) {
+                            this.getParentFolderName(folderList, folderList[i].preId, temp)
+                        }
+                    }
+                }
+                return temp
+            },
+            // 扁平化数组
+            flatArray(folderList, temp = []) {
+                folderList.forEach(item => {
+                    temp.push(item)
+                    if(item.childFolderList && item.childFolderList.length) {
+                        this.flatArray(item.childFolderList, temp)
+                    }
+                })
+                return temp
+            },
+            selectFile(file) {
+                this.$bus.$emit('selectedFile', file)
+            }
+        },
+        created() {
+            this.$bus.$on('folderListChange', async (folderList) => {
+                await this.getArticleList()
+                const list = this.flatArray(folderList)
+                this.articleList.forEach(item => {
+                    this.$set(item, 'parentFolderName', this.getParentFolderName(list, item.folderId).join('/'))
+                })
+            })
+        },
+        destroyed() {
+            // this.$bus.$off('folderListChange')
+        }
     }
 </script>
 
@@ -43,6 +96,10 @@
                 font-size: 15px;
                 font-weight: bold;
             }
+        }
+
+        .file-name {
+            cursor: pointer;
         }
 
         .y-center {

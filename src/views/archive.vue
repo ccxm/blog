@@ -1,7 +1,7 @@
 <template>
     <div class="index-container">
         <nav-header/>
-        <container />
+        <container :show-article="false" :show-archive="true"/>
         <nav-footer />
     </div>
 </template>
@@ -12,7 +12,7 @@
     import NavFooter from '../components/public/NavFooter'
 
     export default {
-        name: 'index',
+        name: 'archive',
         components: {
             NavFooter,
             Container,

@@ -3,73 +3,145 @@
         <div class="content">
             <div class="article-header">
                 <span>已置顶</span>
-                <span>7个月前</span>
-                <span>23 分钟 读完 (大约 3445 个字)</span>
+                <span>{{file.createdAt | formatDate | beautifyTime}}</span>
+                <span>{{Math.ceil(value.length / readSpeed)}} 分钟 读完 (大约 {{value.length}} 个字)</span>
             </div>
             <div class="article-title">
-                <span>博客源码分享</span>
+                <span>{{file.fileName}}</span>
             </div>
-            <div class="article-body">
-<!--                <vue-markdown class="markdown" :source="value" />-->
-                <markdown-preview class="markdown" :initialValue="value" @onCopy="onCopy" theme="oneDark"/>
-<!--                <mavon-editor v-model="value"/>-->
-<!--                <article v-html="value" ></article>-->
-<!--                <markdown-pro v-model="value" />-->
+            <div class="article-body" :class="isPreview ? 'preview-article' : ''" @click="goToPreview"
+                 v-loading="loading" :element-loading-text="loadingText">
+                <!--                <vue-markdown class="markdown" :source="value" />-->
+                <!--                <markdown-preview class="markdown" :initialValue="value" @onCopy="onCopy" theme="oneDark"/>-->
+                <le-preview v-if="value" class="markdown" :class="isPreview ? 'preview-markdown' : ''" ref="md-preview"
+                            :is-md="true" :value="value" :hljs-css="hljsCss"></le-preview>
+                <p class="markdown none-content xy-center" v-else>暂无内容，赶快来写一下吧~</p>
+                <!--                <mavon-editor v-model="value"/>-->
+                <!--                <article v-html="value" ></article>-->
+                <!--                <markdown-pro v-model="value" />-->
             </div>
             <div class="article-footer y-center__between">
                 <div>
                     <i class="far fa-eye"></i>
-                    <span>100次浏览</span>
+                    <span>{{file.pageView}}次浏览</span>
                 </div>
                 <div>
                     <i class="far fa-calendar-check"></i>
-                    <span>最后修改：2020-04-10</span>
+                    <span>最后修改：{{file.updatedAt | formatDate}}</span>
                 </div>
             </div>
         </div>
-<!--        <markdown-pro v-model="value" theme="oneDark"/>-->
+        <!--        <markdown-pro v-model="value" theme="oneDark"/>-->
     </div>
 </template>
 
 <script>
-    import { MarkdownPreview } from 'vue-meditor'
+    // import { MarkdownPreview } from 'vue-meditor'
     // import {MarkdownPro} from 'vue-meditor';
     // import {VueMarkdown} from 'vue-markdown'
+    import axios from 'axios'
+    import {HTTP_CONFIG} from '../../js/http/config'
+    import storage from '../../js/storage'
+
     export default {
-        name: "Article",
+        name: 'Article',
         components: {
-            MarkdownPreview,
+            // MarkdownPreview,
             // MarkdownPro,
             // VueMarkdown
         },
+        props: {
+            isPreview: {
+                type: Boolean,
+                default: false,
+            },
+            articleUrl: {
+                type: String,
+                default: 'DEFAULT',
+            },
+            fileUrl: {
+                type: Object,
+                default: () => {
+                    return {
+                        folderId: '',
+                        fileId: '',
+                        userId: '',
+                    }
+                },
+            },
+        },
         data() {
             return {
-                value: 'test脚本改成jest\n' +
-                    '\n' +
-                    '- `babel.config.js`\n' +
-                    '测试环境为node.js，不支持es6语法，要配置babel，将es6转成es5\n' +
-                    '``` javascript\n' +
-                    'module.exports = {\n' +
-                    '  presets: [\n' +
-                    '    [\n' +
-                    '      "@babel/preset-env",\n' +
-                    '      {\n' +
-                    '        targets: {\n' +
-                    '          node: "current"\n' +
-                    '        }\n' +
-                    '      }\n' +
-                    '    ]\n' +
-                    '  ],\n' +
-                    '  plugins: ["transform-es2015-modules-commonjs"]\n' +
-                    '};\n' +
-                    '```'
+                hljsCss: 'agate',
+                loading: false,
+                loadingText: '加载中...',
+                userId: storage.get('userId'),
+                file: {},
+                readSpeed: 350,
+                value: '',
             }
+        },
+        watch: {
+            fileUrl() {
+                this.getFile()
+            },
         },
         methods: {
             onCopy(code) {
                 console.log(code)
-            }
-        }
+            },
+            goToPreview() {
+                if (!this.isPreview) {
+                    this.$router.push('preview')
+                }
+            },
+            getFile(file) {
+                this.loading = true
+                console.log(this.userId)
+                axios.get(`${HTTP_CONFIG.FILE_BASE_URL}/${this.userId}/${file.folderId}/${file.fileId}.md`, {
+                    headers: {
+                        'Cache-Control': 'no-cache',
+                    },
+                }).then(res => {
+                    this.value = res.data
+                    console.log(this.value.length)
+                    this.loading = false
+                }).catch(err => {
+                    console.log(err)
+                })
+            },
+            updatePageView(file) {
+                this.$api.updatePageView({fileId: file.fileId}).then(res => {
+                    this.$set(file, 'pageView', res.pageView)
+                })
+            },
+            getFileDetail(fileId) {
+                this.$api.getArticleDetail({fileId: fileId}).then(res => {
+                    this.file = res.detail
+                    if (this.isPreview) {
+                        this.updatePageView(this.file)
+                    }
+                })
+            },
+            getArticleList() {
+                this.$api.getLastArticleList().then(res => {
+                    this.file = res.lastArticleList[0]
+                    this.getFile(this.file)
+                })
+            },
+        },
+        mounted() {
+            this.$bus.$on('selectedFile', (file) => {
+                console.log(file)
+                this.file = file
+                this.getFile(file)
+                this.getFileDetail(file.fileId)
+            })
+            this.getArticleList()
+        },
+        destroyed() {
+            this.$bus.$off('selectedFile')
+        },
     }
 </script>
 
@@ -84,11 +156,11 @@
 
 <style scoped lang="scss">
     @import "./../../assets/style/public.scss";
+
     .article {
         width: 98%;
         /*height: 400px;*/
         font-size: 12px;
-        background: #fff;
     }
 
     .content {
@@ -108,25 +180,51 @@
     .article-header {
         font-size: 12px;
         color: #7a7a7a;
+
         span {
             margin-right: 10px;
         }
     }
 
     .article-body {
-        background: #fff;
         border: 1.5px dashed #eee;
         border-radius: 3px;
+        margin-top: 10px;
+
         .markdown {
             width: 100%;
             height: 250px;
+            overflow-y: auto;
+            padding: 5px;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            &:hover {
+            }
         }
+
+        .preview-markdown {
+            height: auto !important;
+        }
+
+        .none-content {
+            font-size: 16px;
+            font-weight: 300;
+            color: #bbb;
+        }
+    }
+
+    .preview-article {
+        border: none !important;
     }
 
     .article-footer {
         font-size: 12px;
         color: #7a7a7a;
         margin-top: 15px;
+
         i {
             margin-right: 3px;
         }

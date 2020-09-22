@@ -1,7 +1,7 @@
 <template>
     <div class="index-container">
         <nav-header/>
-        <container />
+        <container :is-preview="true"/>
         <nav-footer />
     </div>
 </template>
@@ -12,7 +12,7 @@
     import NavFooter from '../components/public/NavFooter'
 
     export default {
-        name: 'index',
+        name: 'preview',
         components: {
             NavFooter,
             Container,

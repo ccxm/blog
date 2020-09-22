@@ -1,4 +1,6 @@
 $default-background: #f7f7f7;
+$default-hover-color: #deeafb;
+$click-active-color: #409EFF;
 $max-width: 85%;
 
 $default-font-family: "Monda", "PingFang SC", "Microsoft YaHei", sans-serif;
@@ -18,7 +20,7 @@ html {
 
 body, html {
   margin: 0;
-  padding: 0;
+  padding: 0 !important;
   font-family: $default-font-family;
 }
 
@@ -113,4 +115,33 @@ body, html {
     /* visibility:hidden;是为了去除content中的文字 */
     visibility: hidden;
   }
+}
+
+
+::-webkit-scrollbar {
+  width: 8px; /* 纵向滚动条*/
+  height: 8px; /* 横向滚动条 */
+  //background-color: #fff;
+}
+
+/*定义滚动条轨道 内阴影*/
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+  background: #f2f2f2;
+  opacity: 0;
+  //background-color: #ccc;
+}
+
+/*定义滑块 内阴影*/
+::-webkit-scrollbar-thumb {
+  //border-radius: 10px;
+  border-radius: 6px;
+  opacity: 0;
+  cursor: pointer;
+  background-color: #ccc;
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+  /*当焦点不在当前区域滑块的状态*/
+  border-radius: 0;
 }

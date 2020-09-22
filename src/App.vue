@@ -5,8 +5,13 @@
 </template>
 
 <script>
+    import storage from './js/storage'
+
     export default {
         name: 'App',
+        mounted() {
+            this.$api.updateVisitorNum({userId: storage.get('userId')})
+        }
     }
 </script>
 
@@ -14,6 +19,7 @@
     @import "assets/style/public";
 
     #app {
+        width: 100%;
         background: $default-background;
         display: flex;
         flex-direction: column;

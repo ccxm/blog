@@ -13,25 +13,47 @@
             <div class="y-center__between">
                 <div class="yx-center">
                     <span>文章</span>
-                    <span>117</span>
+                    <span>{{articleNum}}</span>
                 </div>
                 <div class="yx-center">
                     <span>分类</span>
-                    <span>42</span>
+                    <span>{{sortNum}}</span>
                 </div>
                 <div class="yx-center">
                     <span>标签</span>
-                    <span>84</span>
+                    <span>{{tagNum}}</span>
                 </div>
             </div>
-            <el-button class="fork-me" round>关注我</el-button>
+            <el-button class="fork-me" round @click="forkMe">关注我</el-button>
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        name: "UserInfo"
+        name: "UserInfo",
+        data() {
+            return {
+                articleNum: 0,
+                sortNum: 0,
+                tagNum: 0
+            }
+        },
+        methods: {
+            getStatistics() {
+                this.$api.getStatistics().then(res => {
+                    this.articleNum = res.articleNum
+                    this.sortNum = res.sortNum
+                    this.tagNum = res.tagNum
+                }).catch(() => {})
+            },
+            forkMe() {
+                window.open('https://github.com/ccxm/')
+            }
+        },
+        mounted() {
+            this.getStatistics()
+        }
     }
 </script>
 
@@ -41,6 +63,7 @@
 
     .user-info {
         padding-bottom: 25px;
+        /*position: fixed;*/
 
         .avatar {
             margin-top: 20px;

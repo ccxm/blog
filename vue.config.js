@@ -3,8 +3,12 @@ module.exports = {
     devServer: {
         proxy: {
             // proxy all requests starting with /api to jsonplaceholder
-            '/': {
-                target: 'http://localhost/',   //代理接口
+            '/md': {
+                target: 'http://127.0.0.1/',   //代理接口
+                changeOrigin: true,
+            },
+            '/static-blog': {
+                target: 'http://127.0.0.1/',   //代理接口
                 changeOrigin: true,
             }
         }

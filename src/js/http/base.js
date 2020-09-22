@@ -2,6 +2,7 @@ import axios from 'axios'
 import { HTTP_CONFIG } from './config'
 import { tEmptyParam, tInvalidParam, tErrorTip } from '../tips'
 import dataStore from '../data-store'
+import storage from '../storage'
 import Vue from './../../main'
 
 // 不拦截的路由列表
@@ -23,6 +24,14 @@ httpInstance.interceptors.request.use(config => {
         data: config.data || config.params
     })
     config.headers['Authorization'] = dataStore.getToken() || ''
+    if(!config.data) {
+        config.data = {}
+    }
+    if(!config.params) {
+        config.params = {}
+    }
+    config.data.userId = storage.get('userId')
+    config.params.userId = storage.get('userId')
     return config
 }, error => {
     console.log(error)
@@ -58,6 +67,7 @@ httpInstance.interceptors.response.use(response => {
     }
     return response.data
 }, error => {
+    console.log(error)
     console.log(error.response)
     const response = error.response
     if (response.status === 401) {
@@ -68,7 +78,7 @@ httpInstance.interceptors.response.use(response => {
         }
         tErrorTip('您还未登录或登录已过期，请重新登录')
         if(Vue.$route.path !== '/') {
-            Vue.$router.replace('/')
+            // Vue.$router.replace('/')
         }
         // console.log('token已过期，请重新登录')
         dataStore.deleteToken()

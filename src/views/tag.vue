@@ -1,7 +1,7 @@
 <template>
     <div class="index-container">
         <nav-header/>
-        <container />
+        <container :show-article="false" :is-tag-page="true"/>
         <nav-footer />
     </div>
 </template>
@@ -12,19 +12,11 @@
     import NavFooter from '../components/public/NavFooter'
 
     export default {
-        name: 'index',
+        name: 'tag',
         components: {
             NavFooter,
             Container,
             NavHeader,
-        },
-        data() {
-            return {
-                value: ''
-            }
-        },
-        mounted() {
-
         }
     }
 </script>

@@ -1,13 +1,23 @@
 <template>
     <div class="tag">
-        <span>css</span>
-        <span>13</span>
+        <span>{{tagName}}</span>
+        <span>{{num}}</span>
     </div>
 </template>
 
 <script>
     export default {
-        name: "Tag"
+        name: "Tag",
+        props: {
+            tagName: {
+                type: String,
+                default: 'tag'
+            },
+            num: {
+                type: Number,
+                default: 0
+            }
+        }
     }
 </script>
 

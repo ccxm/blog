@@ -2,11 +2,11 @@
     <div class="small-card">
         <div class="small-card-content">
             <span class="small-content-title">我的作品</span>
-            <div v-for="item in 5" :key="item">
+            <div v-for="(item,index) in workList" :key="index">
                 <div class="work-item xy-center">
-                    <div class="y-center">
+                    <div class="y-center" @click="openWork(item.url)">
                         <i class="fa fa-circle"></i>
-                        <span>猫咪商城</span>
+                        <span>{{item.name}}</span>
                     </div>
                 </div>
             </div>
@@ -16,7 +16,26 @@
 
 <script>
     export default {
-        name: "WorkShow"
+        name: "WorkShow",
+        data() {
+            return {
+                workList: [
+                    {
+                        name: '丑小喵商城',
+                        url: 'https://mall.cxmmao.com/#/'
+                    },
+                    {
+                        name: '丑小喵商城接口文档',
+                        url: 'https://mall.cxmmao.com/cat-mall-api-doc/'
+                    }
+                ]
+            }
+        },
+        methods: {
+            openWork(url) {
+                window.open(url)
+            }
+        }
     }
 </script>
 
@@ -34,6 +53,7 @@
             &:hover {
                 background-color: $default-background;
                 box-shadow:0 0 5px #CCCCCC;
+                cursor: pointer;
             }
 
             i {
