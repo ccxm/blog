@@ -1,14 +1,19 @@
 module.exports = {
     publicPath: './',    // 公共路径
     devServer: {
+        port: 3006,
         proxy: {
             // proxy all requests starting with /api to jsonplaceholder
-            '/md': {
-                target: 'http://127.0.0.1/',   //代理接口
+            '/api': {
+                target: 'https://blog.cxmmao.com/',   //代理接口
                 changeOrigin: true,
             },
-            '/static-blog': {
-                target: 'http://127.0.0.1/',   //代理接口
+            '/md': {
+                target: 'https://blog.cxmmao.com/',   //代理接口
+                changeOrigin: true,
+            },
+            '/blog-images': {
+                target: 'https://blog.cxmmao.com/',   //代理接口
                 changeOrigin: true,
             }
         }

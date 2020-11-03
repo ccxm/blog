@@ -40,8 +40,9 @@
     // import {MarkdownPro} from 'vue-meditor';
     // import {VueMarkdown} from 'vue-markdown'
     import axios from 'axios'
-    import {HTTP_CONFIG} from '../../js/http/config'
+    import {HTTP_CONFIG} from '@/js/http/config'
     import storage from '../../js/storage'
+    import merge from 'webpack-merge'
 
     export default {
         name: 'Article',
@@ -92,7 +93,7 @@
             },
             goToPreview() {
                 if (!this.isPreview) {
-                    this.$router.push('preview')
+                    this.$router.push(`preview?id=${this.file.fileId}`)
                 }
             },
             getFile(file) {
@@ -115,11 +116,14 @@
                     this.$set(file, 'pageView', res.pageView)
                 })
             },
-            getFileDetail(fileId) {
+            getFileDetail(fileId, isGetContent = false) {
                 this.$api.getArticleDetail({fileId: fileId}).then(res => {
                     this.file = res.detail
                     if (this.isPreview) {
                         this.updatePageView(this.file)
+                    }
+                    if (isGetContent) {
+                        this.getFile(this.file)
                     }
                 })
             },
@@ -127,6 +131,9 @@
                 this.$api.getLastArticleList().then(res => {
                     this.file = res.lastArticleList[0]
                     this.getFile(this.file)
+                    this.$router.push({
+                      query: merge(this.$route.query,{id: this.file.fileId})
+                    })
                 })
             },
         },
@@ -136,8 +143,15 @@
                 this.file = file
                 this.getFile(file)
                 this.getFileDetail(file.fileId)
+                this.$router.push({
+                  query: merge(this.$route.query,{id: file.fileId})
+                })
             })
-            this.getArticleList()
+            if (this.$route.query.id) {
+              this.getFileDetail(this.$route.query.id, true)
+            } else {
+              this.getArticleList()
+            }
         },
         destroyed() {
             this.$bus.$off('selectedFile')
