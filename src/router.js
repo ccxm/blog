@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import index from './views/index'
-import edit from "./views/edit"
-import preview from "./views/preview"
-import archive from './views/archive'
-import tag from './views/tag'
-import sort from './views/sort'
+import index from './pages/index'
+import edit from "./pages/edit"
+import preview from "./pages/preview"
+import archive from './pages/archive'
+import tag from './pages/tag'
+import sort from './pages/sort'
 
 Vue.use(Router)
 

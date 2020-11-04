@@ -37,13 +37,16 @@
     @import "./../../assets/style/public";
 
     .footer {
-        margin-top: 30px;
+        //margin-top: 30px;
         display: flex;
         background: $default-background;
         height: 60px;
         width: 100%;
         box-shadow: 0 4px 10px 10px rgba(0,0,0,0.05);
         padding: 40px 0;
+        position: absolute;
+        left: 0;
+        bottom: 0;
 
         .c-container {
             /*display: flex;*/

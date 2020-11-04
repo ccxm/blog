@@ -247,17 +247,29 @@
                 })
             },
             editFile(file) {
-                this.$router.push({
+                // this.$router.push({
+                //     path: '/edit',
+                //     query: {
+                //         folderId: this.folderItem.folderId,
+                //         fileId: file.fileId,
+                //         fileName: file.fileName
+                //     },
+                //     params: {
+                //         folderId: this.folderItem.folderId
+                //     }
+                // })
+                const { href } = this.$router.resolve({
                     path: '/edit',
                     query: {
-                        folderId: this.folderItem.folderId,
-                        fileId: file.fileId,
-                        fileName: file.fileName
+                      folderId: this.folderItem.folderId,
+                      fileId: file.fileId,
+                      fileName: file.fileName
                     },
                     params: {
-                        folderId: this.folderItem.folderId
+                      folderId: this.folderItem.folderId
                     }
                 })
+                window.open(href, '_blank')
             }
         },
         mounted() {

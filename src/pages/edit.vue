@@ -39,8 +39,8 @@
     // import MarkdownPro from 'vue-meditor'
     import InputButton from "../components/public/InputButton"
     import axios from 'axios'
-    import {HTTP_CONFIG} from './../js/http/config'
-    import {pUpdateFile, pRenameFile} from "../js/http/param"
+    import {HTTP_CONFIG} from '@/js/http/config'
+    import {pUpdateFile, pRenameFile} from "@/js/http/param"
     import storage from '../js/storage'
     export default {
         name: "edit",
@@ -152,6 +152,7 @@
         width: 100%;
         height: 100%;
         overflow-y: hidden;
+        min-height: 100%;
     }
 
     .edit-header {

@@ -57,7 +57,7 @@
                 return temp
             },
             selectFile(file) {
-                this.$bus.$emit('selectedFile', file)
+                this.$router.push(`/preview?id=${file.fileId}`)
             }
         },
         created() {

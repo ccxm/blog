@@ -1,30 +1,14 @@
 <template>
-    <div class="index-container">
-        <nav-header/>
-        <container :is-preview="true"/>
-        <nav-footer />
-    </div>
+    <container :show-article="false" :show-full-catalog="true" :is-sort-page="true"/>
 </template>
 
 <script>
-    import NavHeader from "./../components/public/NavHeader"
     import Container from './../components/public/Container'
-    import NavFooter from '../components/public/NavFooter'
 
     export default {
-        name: 'preview',
+        name: 'sort',
         components: {
-            NavFooter,
             Container,
-            NavHeader,
-        },
-        data() {
-            return {
-                value: ''
-            }
-        },
-        mounted() {
-
         }
     }
 </script>

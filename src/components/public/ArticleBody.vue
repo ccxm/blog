@@ -80,12 +80,18 @@
                 file: {},
                 readSpeed: 350,
                 value: '',
+                isEntry: true, // 是否是进入路由
             }
         },
         watch: {
             fileUrl() {
                 this.getFile()
             },
+            '$route'() {
+              if(!this.isEntry) {
+                this.getFileDetail(this.$route.query.id, true)
+              }
+            }
         },
         methods: {
             onCopy(code) {
@@ -141,11 +147,14 @@
             setClickAsNewBlank() {
               this.$nextTick(() => {
                 const parent = document.getElementsByClassName('preview-markdown')[0]
-                const tagA = [...parent.getElementsByTagName('a')]
-                tagA.shift()  // 去除第一个元素，第一个是标题
-                tagA.forEach(item => {
-                  item.setAttribute('target', '_blank')
-                })
+                console.log(parent)
+                if (parent) {
+                  const tagA = [...parent.getElementsByTagName('a')]
+                  tagA.shift()  // 去除第一个元素，第一个是标题
+                  tagA.forEach(item => {
+                    item.setAttribute('target', '_blank')
+                  })
+                }
               })
             }
         },
@@ -161,6 +170,7 @@
             })
             if (this.$route.query.id) {
               this.getFileDetail(this.$route.query.id, true)
+              this.isEntry = false
             } else {
               this.getArticleList()
             }
