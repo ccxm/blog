@@ -107,6 +107,7 @@
                     this.value = res.data
                     console.log(this.value.length)
                     this.loading = false
+                    this.setClickAsNewBlank()
                 }).catch(err => {
                     console.log(err)
                 })
@@ -136,6 +137,17 @@
                     })
                 })
             },
+            // 设置预览的a标签打开为新窗口
+            setClickAsNewBlank() {
+              this.$nextTick(() => {
+                const parent = document.getElementsByClassName('preview-markdown')[0]
+                const tagA = [...parent.getElementsByTagName('a')]
+                tagA.shift()  // 去除第一个元素，第一个是标题
+                tagA.forEach(item => {
+                  item.setAttribute('target', '_blank')
+                })
+              })
+            }
         },
         mounted() {
             this.$bus.$on('selectedFile', (file) => {
