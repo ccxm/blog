@@ -95,6 +95,9 @@
                 console.log(this.articleList)
             })
         },
+        destroyed() {
+          this.$bus.$off('folderListChange')
+        }
     }
 </script>
 

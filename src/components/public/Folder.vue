@@ -127,7 +127,12 @@
                     ...file,
                     folderId: this.folderItem.folderId
                 }
-                this.$bus.$emit('selectedFile', temp)
+                const pathName = this.$route.name
+                if(pathName !== 'index' || pathName !== 'preview') {
+                  this.$router.push(`/preview?id=${temp.fileId}`)
+                }else {
+                  this.$bus.$emit('selectedFile', temp)
+                }
             },
             rename() {
                 if (this.isNewFolder) {

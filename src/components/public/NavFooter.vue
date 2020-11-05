@@ -60,6 +60,7 @@
             flex-direction: column;
             color: #4a4a4a;
             font-size: 13px;
+            padding-left: 20px;
 
             .blue-span {
                 color: #3273dc;
@@ -69,17 +70,13 @@
                 margin-top: 10px;
             }
 
-            /*.footer-title {*/
-            /*    font-size: 20px;*/
-            /*    color: #3273DC;*/
-            /*    font-weight: 600;*/
-            /*    font-family: Monda;*/
-            /*    margin-bottom: 20px;*/
-            /*}*/
         }
 
         .foot-right {
-            padding-right: 50px;
+            padding-right: 10px;
+            .fab {
+              color: #363636;
+            }
         }
 
     }

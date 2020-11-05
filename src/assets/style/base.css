@@ -4,6 +4,11 @@
 }
 
 @font-face {
+    font-family: "Zcool";
+    src: url("zcool.ttf");
+}
+
+@font-face {
     font-family: 'iconfont';  /* project id 1541787 */
     src: url('//at.alicdn.com/t/font_1541787_5m1rtt5vyqq.eot');
     src: url('//at.alicdn.com/t/font_1541787_5m1rtt5vyqq.eot?#iefix') format('embedded-opentype'),

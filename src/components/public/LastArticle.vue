@@ -70,7 +70,7 @@
             })
         },
         destroyed() {
-            // this.$bus.$off('folderListChange')
+            this.$bus.$off('folderListChange')
         }
     }
 </script>

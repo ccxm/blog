@@ -2,13 +2,14 @@
     <div class="header x-center default-hover">
         <div class="y-center c-container">
             <el-row class="c-row y-center">
-                <el-col :span="3" class="yx-center">
+                <el-col :span="3" class="yx-center nav-logo">
                     <span class="nav-title nav-item">丑小喵</span>
+<!--                  <img class="nav-title nav-item" src="./../../assets/image/logo.png">-->
                 </el-col>
                 <el-col :span="10" class="y-center">
                     <span class="nav-item" v-for="(item,index) in urlList" :key="index" @click="jump(item.path)">{{item.title}}</span>
                 </el-col>
-                <el-col :span="4" :offset="7" class="y-center">
+                <el-col :span="4" :offset="7" class="y-center header--right">
                     <div class="y-center">
                         <a v-if="!isLogin" class="nav-item nav-icon" @click="showLogin = true">
                             <i class="fas fa fa-sign-in login-icon" aria-hidden="true"></i>
@@ -116,6 +117,12 @@
         box-shadow: 0 4px 10px rgba(0,0,0,0.05), 0 0 1px rgba(0,0,0,0.1);
     }
 
+    .nav-logo {
+      justify-content: flex-start;
+      flex-direction: row;
+      padding-left: 20px;
+    }
+
     .c-row {
         width: 100%;
         span {
@@ -139,10 +146,11 @@
         }
 
         .nav-title {
-            font-size: 20px;
+            font-size: 30px;
             color: #3273DC;
-            font-weight: 600;
-            font-family: Monda;
+            font-weight: 500;
+            padding-left: 0;
+            font-family: Zcool, sans-serif;
         }
 
         .nav-icon {
@@ -154,6 +162,15 @@
             height: 25px;
             border-radius: 100%;
             padding-top: 5px;
+        }
+
+        .header--right {
+            justify-content: flex-end;
+            padding-right: 10px;
+
+            .fa-github {
+              color: #363636;
+            }
         }
     }
 

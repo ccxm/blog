@@ -1,22 +1,19 @@
 <template>
-    <container />
+    <container :is-preview="true"/>
 </template>
 
 <script>
-    import Container from './../components/public/Container'
+    import Container from '../../components/public/Container'
 
     export default {
-        name: 'index',
+        name: 'preview',
         components: {
-            Container
+            Container,
         },
         data() {
             return {
                 value: ''
             }
         },
-        mounted() {
-
-        }
     }
 </script>

@@ -1,34 +1,38 @@
 <template>
     <div class="edit-container">
-        <div class="edit-header y-center">
-            <el-input class="input-title"
-                    type="text"
-                    placeholder="请输入标题"
-                    v-model="fileName"
-                    maxlength="15"
-                    show-word-limit
-            />
-            <el-select class="select-tag"
-                    v-model="selectTag"
-                    multiple
-                    :multiple-limit="5"
-                    style="margin-left: 20px;"
-                    placeholder="请选择标签">
+        <div class="edit-header y-center__between">
+            <div style="display: flex;width: 80%">
+              <el-input class="input-title"
+                        type="text"
+                        placeholder="请输入标题"
+                        v-model="fileName"
+                        maxlength="15"
+                        show-word-limit
+              />
+              <el-select class="select-tag"
+                         v-model="selectTag"
+                         multiple
+                         :multiple-limit="5"
+                         style="margin-left: 20px;"
+                         placeholder="请选择标签">
                 <el-option
-                        v-for="(item,index) in tagList"
-                        :key="index"
-                        :label="item.tagName"
-                        :value="item.tagId">
+                    v-for="(item,index) in tagList"
+                    :key="index"
+                    :label="item.tagName"
+                    :value="item.tagId">
                 </el-option>
-            </el-select>
-            <div class="header-input-button">
-                <input-button @change="getTagList" />
+              </el-select>
             </div>
-            <el-button class="save-article" icon="el-icon-upload" @click="updateFile">更新文章</el-button>
-<!--            <el-button>返回</el-button>-->
-            <el-avatar :size="40" class="header-avatar">
-                <img src="./../../public/img/head-photo.png">
-            </el-avatar>
+            <div style="display: flex;padding-right: 10px">
+              <div class="header-input-button">
+                <input-button @change="getTagList" />
+              </div>
+              <el-button class="save-article" icon="el-icon-upload" @click="updateFile">更新文章</el-button>
+              <!--            <el-button>返回</el-button>-->
+              <el-avatar :size="40" class="header-avatar">
+                <img src="../../../public/img/head-photo.png">
+              </el-avatar>
+            </div>
         </div>
 <!--        <markdown-pro v-model="value" />-->
         <le-editor class="edit-md" :style="getHeight" :image-uploader="imageUploader" @uploadImg="uploadImg" v-model="file" :hljs-css="hljsCss" ></le-editor>
@@ -37,11 +41,11 @@
 
 <script>
     // import MarkdownPro from 'vue-meditor'
-    import InputButton from "../components/public/InputButton"
+    import InputButton from "../../components/public/InputButton"
     import axios from 'axios'
     import {HTTP_CONFIG} from '@/js/http/config'
     import {pUpdateFile, pRenameFile} from "@/js/http/param"
-    import storage from '../js/storage'
+    import storage from '../../js/storage'
     export default {
         name: "edit",
         components: {
@@ -97,7 +101,7 @@
                 // 两个参数 第一个是图片访问路径 第二个是文件名 按照如下类似的方法即可向编辑区插入上传好的图片了
                 const data = new FormData();
                 data.append('file', file);
-                axios.post('http://127.0.0.1:3003/user/upload-image', data, {
+                axios.post('http://127.0.0.1:3006/api/user/upload-image', data, {
                     headers: {
                         'Content-type': 'multipart/form-data'
                     }
@@ -150,9 +154,8 @@
 <style scoped lang="scss">
     .edit-container {
         width: 100%;
-        height: 100%;
+        height: 100vh;
         overflow-y: hidden;
-        min-height: 100%;
     }
 
     .edit-header {
@@ -161,11 +164,11 @@
         /*width: 100%;*/
 
         .input-title {
-            width: 32%;
+            width: 40%;
         }
 
         .select-tag {
-            width: 40%;
+            width: 60%;
         }
 
         .header-input-button {

@@ -1,14 +1,14 @@
 <template>
-    <container :is-preview="true"/>
+    <container />
 </template>
 
 <script>
-    import Container from './../components/public/Container'
+    import Container from '../../components/public/Container'
 
     export default {
-        name: 'preview',
+        name: 'index',
         components: {
-            Container,
+            Container
         },
         data() {
             return {
