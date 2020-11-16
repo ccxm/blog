@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    import Container from '../../components/public/Container'
+    import Container from '../../components/layout/Container'
 
     export default {
         name: 'preview',

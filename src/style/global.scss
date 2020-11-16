@@ -1,11 +1,3 @@
-$default-background: #f7f7f7;
-$default-hover-color: #deeafb;
-$click-active-color: #409EFF;
-$max-width: 80%;
-
-$default-font-family: "Monda", "PingFang SC", "Microsoft YaHei", sans-serif;
-$border-shadow: 0 4px 10px rgba(0, 0, 0, 0.05), 0 0 1px rgba(0, 0, 0, 0.1);
-
 html {
   background-color: #f7f7f7;
   font-size: 14px;
@@ -26,41 +18,6 @@ body, html {
 
 .c-container {
   width: $max-width;
-}
-
-.x-center {
-  display: flex;
-  justify-content: center;
-}
-
-.y-center {
-  display: flex;
-  align-items: center;
-}
-
-//垂直方向居中
-.yx-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.xy-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.y-center__between {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.y-flex {
-  display: flex;
-  flex-direction: column;
 }
 
 .default-hover {
@@ -104,20 +61,7 @@ body, html {
   }
 }
 
-.clear-both {
-  &:after {
-    content: ".";
-    display: block;
-    clear: both;
-    /* height:0;和overflow:hidden;是为了解决IE兼容的问题 */
-    height: 0;
-    overflow: hidden;
-    /* visibility:hidden;是为了去除content中的文字 */
-    visibility: hidden;
-  }
-}
-
-
+// 设置滚动条的样式
 ::-webkit-scrollbar {
   width: 8px; /* 纵向滚动条*/
   height: 8px; /* 横向滚动条 */

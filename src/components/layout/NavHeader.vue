@@ -20,7 +20,7 @@
                                 trigger="hover"
                                 >
                             <el-button class="login-out-btn" @click="logout">登出</el-button>
-                            <img class="avatar-photo" slot="reference" src="./../../../public/img/head-photo.png" />
+                            <img class="avatar-photo" slot="reference" src="../../../public/img/head-photo.png" />
                         </el-popover>
                     </div>
                     <a class="nav-item nav-icon"  href="https://github.com/ccxm/" target="_blank">
@@ -41,7 +41,7 @@
 
 <script>
 
-    import Login from './Login'
+    import Login from '../public/Login'
     import dataStore from '../../js/data-store'
     export default {
         name: "NavHeader",
@@ -108,7 +108,6 @@
 </style>
 
 <style scoped lang="scss">
-    @import "./../../assets/style/public";
     .header {
         display: flex;
         background: $default-background;

@@ -58,7 +58,6 @@
 </script>
 
 <style scoped lang="scss">
-    @import "./../../assets/style/public.scss";
     $color: #4a4a4a;
 
     .user-info {

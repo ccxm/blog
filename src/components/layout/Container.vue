@@ -3,7 +3,7 @@
         <el-row style="width: 100%">
             <el-col :span="6" :md="7" :lg="6" class="yx-center" >
                 <user-info />
-                <catalog v-if="!showFullCatalog" :is-full="showFullCatalog" @change="showFullCatalog = !showFullCatalog" :is-mid-show="showFullCatalog"/>
+                <catalog :is-mid="false" v-if="!showFullCatalog" :is-full="showFullCatalog" @change="showFullCatalog = !showFullCatalog" :is-mid-show="showFullCatalog"/>
                 <tag-container v-if="showFullCatalog" />
             </el-col>
             <el-col v-if="isPreview" :span="18" class="yx-center">
@@ -25,13 +25,13 @@
 </template>
 
 <script>
-    import UserInfo from "./UserInfo"
-    import ArticleBody from "./ArticleBody"
-    import Catalog from "./Catalog"
-    import TagContainer from "./TagContainer"
-    import LastArticle from "./LastArticle"
-    import WorkShow from "./WorkShow"
-    import ArchiveContainer from './ArchiveContainer'
+    import UserInfo from "../public/UserInfo"
+    import ArticleBody from "../public/ArticleBody"
+    import Catalog from "../public/Catalog"
+    import TagContainer from "../public/TagContainer"
+    import LastArticle from "../public/LastArticle"
+    import WorkShow from "../public/WorkShow"
+    import ArchiveContainer from '../public/ArchiveContainer'
     export default {
         name: "Container",
         components: {

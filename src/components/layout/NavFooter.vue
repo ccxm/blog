@@ -34,7 +34,6 @@
 </script>
 
 <style scoped lang="scss">
-    @import "./../../assets/style/public";
 
     .footer {
         //margin-top: 30px;

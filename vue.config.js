@@ -1,4 +1,6 @@
+const configureWebpack = require('./webpack.config')
 module.exports = {
+    configureWebpack,
     publicPath: './',    // 公共路径
     devServer: {
         port: 3006,
@@ -17,6 +19,13 @@ module.exports = {
                 changeOrigin: true,
             }
         }
+    },
+    //配置全局样式变量
+    css: {
+        loaderOptions: {
+            sass: {
+                prependData: `@import "./src/style/index.scss";`
+            }
+        }
     }
-
 }

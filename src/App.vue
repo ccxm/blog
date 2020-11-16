@@ -10,8 +10,8 @@
 
 <script>
     import storage from './js/storage'
-    import NavHeader from '@/components/public/NavHeader';
-    import NavFooter from '@/components/public/NavFooter';
+    import NavHeader from '@/components/layout/NavHeader';
+    import NavFooter from '@/components/layout/NavFooter';
 
     export default {
         name: 'App',
@@ -39,8 +39,6 @@
 </script>
 
 <style lang="scss">
-    @import "assets/style/public";
-
     #app {
         width: 100%;
         min-height: 100vh;

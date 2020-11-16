@@ -1,5 +1,5 @@
 <template>
-    <div class="small-card" :class="{'card': isMid, 'full-card': isFull}" v-loading="loading" :element-loading-text="loadingText">
+    <div class="small-card" :class="{'mid-card': isMid, 'full-card': isFull}" v-loading="loading" :element-loading-text="loadingText">
         <div class="content">
             <div class="folder-header y-center__between">
                 <i class="el-icon-folder-add" @click="addNewFolder"></i>
@@ -248,8 +248,6 @@
 </script>
 
 <style lang="scss">
-    @import "./../../assets/style/public";
-
     .padding-left-folder {
         width: 92%;
         padding: 5px 4%;
@@ -378,10 +376,11 @@
 
 <style scoped lang="scss">
 
-    .card {
+    .mid-card {
         width: 98% !important;
         margin-bottom: 20px;
     }
+
 
     .small-card, .card {
         margin-top: 20px;

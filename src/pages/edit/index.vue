@@ -46,6 +46,7 @@
     import {HTTP_CONFIG} from '@/js/http/config'
     import {pUpdateFile, pRenameFile} from "@/js/http/param"
     import storage from '../../js/storage'
+
     export default {
         name: "edit",
         components: {

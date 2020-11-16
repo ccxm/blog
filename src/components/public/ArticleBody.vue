@@ -1,5 +1,8 @@
 <template>
-    <div class="article card">
+    <div class="article card" @click="goToPreview">
+        <div class="article-bg-img"  :class="{'article-bg-img-preview': isPreview}">
+          <img src="http://img08.tooopen.com/20201104/tooopen_sy_145624562476393.jpg" />
+        </div>
         <div class="content">
             <div class="article-header">
                 <span>已置顶</span>
@@ -9,7 +12,7 @@
             <div class="article-title">
                 <span>{{file.fileName}}</span>
             </div>
-            <div class="article-body" :class="isPreview ? 'preview-article' : ''" @click="goToPreview"
+            <div class="article-body" :class="isPreview ? 'preview-article' : ''"
                  v-loading="loading" :element-loading-text="loadingText">
                 <!--                <vue-markdown class="markdown" :source="value" />-->
                 <!--                <markdown-preview class="markdown" :initialValue="value" @onCopy="onCopy" theme="oneDark"/>-->
@@ -169,6 +172,10 @@
                 })
             })
             if (this.$route.query.id) {
+              const fileIdList = ['111', '222']
+              fileIdList.forEach(id => {
+                this.getFileDetail(id)
+              })
               this.getFileDetail(this.$route.query.id, true)
               this.isEntry = false
             } else {
@@ -181,22 +188,29 @@
     }
 </script>
 
-<style lang="scss">
-    @import "./../../assets/style/public.scss";
-    /*.markdown-preview {*/
-    /*    width: 100% !important;*/
-    /*    height: 300px !important;*/
-    /*    background: #fff;*/
-    /*}*/
-</style>
-
 <style scoped lang="scss">
-    @import "./../../assets/style/public.scss";
-
     .article {
         width: 98%;
         /*height: 400px;*/
         font-size: 12px;
+
+        .article-bg-img {
+          width: 100%;
+          height: 280px;
+          overflow-y: hidden;
+          border-top-left-radius: 3px;
+          border-top-right-radius: 3px;
+
+          img {
+            width: 100%;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+          }
+        }
+
+      .article-bg-img-preview {
+        height: 400px;
+      }
     }
 
     .content {

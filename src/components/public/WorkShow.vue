@@ -40,7 +40,6 @@
 </script>
 
 <style scoped lang="scss">
-    @import "./../../assets/style/public";
     .work-item {
         height: 37px;
 
