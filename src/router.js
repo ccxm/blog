@@ -5,7 +5,7 @@ import edit from "./pages/edit/index"
 import preview from "./pages/preview/index"
 import archive from './pages/archive/index'
 import tag from './pages/tag/index'
-import sort from './pages/sort/index'
+import Sort from './pages/sort/index'
 
 Vue.use(Router)
 
@@ -39,9 +39,9 @@ export default new Router({
             component: tag
         },
         {
-            path: '/sort',
+            path: '/sort/:id?',
             name: 'sort',
-            component: sort
+            component: Sort
         },
     ],
 })

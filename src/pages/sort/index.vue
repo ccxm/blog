@@ -9,6 +9,10 @@
         name: 'sort',
         components: {
             Container,
+        },
+        mounted() {
+          console.log(this.$route.params)
+          console.log(this.$route.params.id)
         }
     }
 </script>

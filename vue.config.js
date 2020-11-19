@@ -1,7 +1,7 @@
 const configureWebpack = require('./webpack.config')
 module.exports = {
     configureWebpack,
-    publicPath: './',    // 公共路径
+    publicPath: '/',    // 公共路径
     devServer: {
         port: 3006,
         proxy: {
