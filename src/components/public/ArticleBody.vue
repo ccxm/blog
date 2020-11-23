@@ -1,8 +1,8 @@
 <template>
     <div class="article card" @click="goToPreview">
-        <div class="article-bg-img"  :class="{'article-bg-img-preview': isPreview}">
-          <img src="http://img08.tooopen.com/20201104/tooopen_sy_145624562476393.jpg" />
-        </div>
+<!--        <div class="article-bg-img"  :class="{'article-bg-img-preview': isPreview}">-->
+<!--          <img src="http://img08.tooopen.com/20201104/tooopen_sy_145624562476393.jpg" />-->
+<!--        </div>-->
         <div class="content">
             <div class="article-header">
                 <span>已置顶</span>
@@ -172,10 +172,6 @@
                 })
             })
             if (this.$route.query.id) {
-              const fileIdList = ['111', '222']
-              fileIdList.forEach(id => {
-                this.getFileDetail(id)
-              })
               this.getFileDetail(this.$route.query.id, true)
               this.isEntry = false
             } else {

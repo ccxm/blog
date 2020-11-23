@@ -13,6 +13,7 @@ import 'nprogress/nprogress.css'
 import leMarkdownEditor from 'le-markdown-editor'
 import InstallPlugins from './plugins'
 import './style/font.css'
+import store from '@/store';
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
@@ -33,8 +34,12 @@ router.afterEach(() => {
 
 const vue = new Vue({
   router,
+  store,
   render: h => h(App),
   mounted() {
+    console.log(this.$store.state.agree)
+    this.$store.dispatch('agree/changeState', true)
+    console.log(this.$store.state.agree.isAgree)
   }
 }).$mount('#app')
 

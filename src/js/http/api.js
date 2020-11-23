@@ -57,6 +57,6 @@ export const updatePageView = params => put('/file/pages-view', params)
 
 export const getArticleDetail = params => get('/file/detail', params)
 
-export const updateVisitorNum = params => put('/user/pages-view', params)
+export const updateVisitorNum = params => put('/user/page-view', params)
 
-export const getVisitorNum = params => get('/user/pages-view', params)
+export const getVisitorNum = params => get('/user/page-view', params)
