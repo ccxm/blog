@@ -53,7 +53,7 @@ export const getLastArticleList = () => get('file/last-articles')
 
 export const getArticleList = () => get('file/articles')
 
-export const updatePageView = params => put('/file/pages-view', params)
+export const updatePageView = params => put('/file/page-view', params)
 
 export const getArticleDetail = params => get('/file/detail', params)
 
