@@ -129,7 +129,7 @@
                     if (isLoading) {
                         this.loading = false
                     }
-                }).catch()
+                })
             },
             onKeyEnter() {
                 pNewFolder.folderName = this.newFolderName
@@ -156,37 +156,37 @@
                         childFolderList: []
                     })
                     this.clearInput()
-                }).catch()
+                })
             },
             rNewFile(folder) {
                 this.$api.newFile(pNewFile).then(res => {
                     res.isDel = false
                     folder.fileList.push(res)
-                }).catch()
+                })
             },
             rDelFolder() {
                 this.loading = true
                 this.$api.deleteFolder(pDelFolder).then(() => {
                     this.getFolderList(true)
-                }).catch()
+                })
             },
             rDelFile() {
                 this.loading = true
                 this.$api.deleteFile(pDelFile).then(() => {
                     this.getFolderList(true)
-                }).catch()
+                })
             },
             rCopyFolder() {
                 this.loading = true
                 this.$api.copyFolder(pCopyFolder).then(() => {
                     this.getFolderList(true)
-                }).catch()
+                })
             },
             rCopyFile() {
                 this.loading = true
                 this.$api.copyFile(pCopyFile).then(() => {
                     this.getFolderList(true)
-                }).catch()
+                })
             },
             // 监听事件
             addListener() {

@@ -92,7 +92,7 @@
                 this.articleList.forEach(item => {
                     this.$set(item, 'parentFolderName', this.getParentFolderName(list, item.folderId).join('/'))
                 })
-                console.log(this.articleList)
+                // console.log(this.articleList)
             })
         },
         destroyed() {

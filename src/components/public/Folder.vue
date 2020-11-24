@@ -1,5 +1,5 @@
 <template>
-    <div class="folder-container">
+    <div class="folder-container" v-if="!folderItem.isDel">
         <div class="folder-body">
             <div class="folder-item y-flex">
                 <div class="folder y-center" @click.right.prevent="showMenu($event, true)"
