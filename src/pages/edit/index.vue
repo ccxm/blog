@@ -43,9 +43,10 @@
     // import MarkdownPro from 'vue-meditor'
     import InputButton from "../../components/public/InputButton"
     import axios from 'axios'
-    import {HTTP_CONFIG} from '@/js/http/config'
-    import {pUpdateFile, pRenameFile} from "@/js/http/param"
-    import storage from '../../js/storage'
+    import {IMAGE_BASE_URL, FILE_BASE_URL} from '@/config'
+    import {pUpdateFile, pRenameFile} from "@api/param"
+    import storage from '@utils/storage'
+    // import dataStore from '@/utils/dataStore';
 
     export default {
         name: "edit",
@@ -69,7 +70,7 @@
                     custom: true,
                     fileType: 'photos',
                     fileNameType: '',
-                    imagePrefix: HTTP_CONFIG.IMAGE_BASE_URL, // 图片前缀地址
+                    imagePrefix: IMAGE_BASE_URL, // 图片前缀地址
                     type: 'server',
                     url: 'http://127.0.0.1:3003/user/upload-image' // 接口地址
                 }
@@ -89,7 +90,7 @@
         },
         methods: {
             getFile() {
-                axios.get(`${HTTP_CONFIG.FILE_BASE_URL}/${this.userId}/${pUpdateFile.folderId}/${pUpdateFile.fileId}.md`, {
+                axios.get(`${FILE_BASE_URL}/${this.userId}/${pUpdateFile.folderId}/${pUpdateFile.fileId}.md`, {
                     headers: {
                         'Cache-Control': 'no-cache'
                     }
@@ -100,14 +101,22 @@
             uploadImg:function ($vm,file) {
                 // 添加图片
                 // 两个参数 第一个是图片访问路径 第二个是文件名 按照如下类似的方法即可向编辑区插入上传好的图片了
-                const data = new FormData();
-                data.append('file', file);
-                axios.post('http://127.0.0.1:3006/api/user/upload-image', data, {
-                    headers: {
-                        'Content-type': 'multipart/form-data'
-                    }
+                // const data = new FormData();
+                // data.append('file', file)
+                // data.append('test', 'hello')
+                // axios.post('http://127.0.0.1:3006/api/user/upload-image', data, {
+                //     headers: {
+                //         'Content-type': 'multipart/form-data',
+                //         'Authorization': dataStore.getToken() || '',
+                //         'type': 'bg'
+                //     }
+                // }).then(res => {
+                //     $vm.insertImg(`${$vm.config.imageUploader.imagePrefix}${res.data.data.url}`, res.data.data.url)
+                // })
+                this.$api.uploadImage(file, {
+                  type: 'article'
                 }).then(res => {
-                    $vm.insertImg(`${$vm.config.imageUploader.imagePrefix}${res.data.data.url}`, res.data.data.url)
+                  $vm.insertImg(`${$vm.config.imageUploader.imagePrefix}${res.url}`, res.url)
                 })
             },
             updateFile() {

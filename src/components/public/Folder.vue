@@ -70,8 +70,8 @@
 
 <script>
     import FilePopover from "./FilePopover"
-    import storage from "../../js/storage"
-    import { pRenameFolder, pRenameFile } from './../../js/http/param'
+    import storage from "@utils/storage"
+    import { pRenameFolder, pRenameFile } from '@api/param'
 
     export default {
         name: "Folder",

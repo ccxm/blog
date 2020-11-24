@@ -25,7 +25,7 @@
 </template>
 
 <script>
-    import dataStore from '../../js/data-store'
+    import dataStore from '@/utils/dataStore'
     export default {
         name: 'Login',
         props: {

@@ -42,7 +42,7 @@
 <script>
 
     import Login from '../public/Login'
-    import dataStore from '../../js/data-store'
+    import dataStore from '@/utils/dataStore'
     export default {
         name: "NavHeader",
         components: {Login},

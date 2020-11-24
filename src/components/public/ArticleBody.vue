@@ -1,13 +1,25 @@
 <template>
     <div class="article card" @click="goToPreview">
-<!--        <div class="article-bg-img"  :class="{'article-bg-img-preview': isPreview}">-->
-<!--          <img src="http://img08.tooopen.com/20201104/tooopen_sy_145624562476393.jpg" />-->
-<!--        </div>-->
+        <div v-if="file.fileImage" class="article-bg-img"  :class="{'article-bg-img-preview': isPreview}">
+          <img :src="IMAGE_BASE_URL + file.fileImage"/>
+        </div>
         <div class="content">
-            <div class="article-header">
-                <span>已置顶</span>
-                <span>{{file.createdAt | formatDate | beautifyTime}}</span>
-                <span>{{Math.ceil(value.length / readSpeed)}} 分钟 读完 (大约 {{value.length}} 个字)</span>
+            <div class="article-header y-center__between">
+                <div>
+                  <span>已置顶</span>
+                  <span>{{file.createdAt | formatDate | beautifyTime}}</span>
+                  <span>{{Math.ceil(value.length / readSpeed)}} 分钟 读完 (大约 {{value.length}} 个字)</span>
+                </div>
+              <el-upload
+                  @click.stop.native
+                  class="upload-demo"
+                  :auto-upload="false"
+                  :show-file-list="false"
+                  :on-change="uploadImage"
+                  :multiple="false">
+                <a style="color: #409EFF;letter-spacing: 1px;font-size: 14px">上传背景图片</a>
+<!--                <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
+              </el-upload>
             </div>
             <div class="article-title">
                 <span>{{file.fileName}}</span>
@@ -43,8 +55,8 @@
     // import {MarkdownPro} from 'vue-meditor';
     // import {VueMarkdown} from 'vue-markdown'
     import axios from 'axios'
-    import {HTTP_CONFIG} from '@/js/http/config'
-    import storage from '../../js/storage'
+    import { FILE_BASE_URL, IMAGE_BASE_URL } from '@/config'
+    import storage from '@utils/storage'
     import merge from 'webpack-merge'
 
     export default {
@@ -76,6 +88,7 @@
         },
         data() {
             return {
+                IMAGE_BASE_URL,
                 hljsCss: 'agate',
                 loading: false,
                 loadingText: '加载中...',
@@ -108,7 +121,7 @@
             getFile(file) {
                 this.loading = true
                 console.log(this.userId)
-                axios.get(`${HTTP_CONFIG.FILE_BASE_URL}/${this.userId}/${file.folderId}/${file.fileId}.md`, {
+                axios.get(`${FILE_BASE_URL}/${this.userId}/${file.folderId}/${file.fileId}.md`, {
                     headers: {
                         'Cache-Control': 'no-cache',
                     },
@@ -159,7 +172,35 @@
                   })
                 }
               })
-            }
+            },
+          // 上传图片
+          uploadImage(file) {
+              console.log(file)
+            const isImage = file.raw.type.indexOf('image') === 0
+            const isLt5M = file.raw.size / 1024 / 1024 < 5;
+              if(!isImage) {
+                this.$tips.error('上传背景图片必须为图片类型')
+                return
+              }
+              if(!isLt5M) {
+                this.$tips.error('上传背景图片必须小于5M')
+                return
+              }
+              this.$api.uploadImage(file.raw, {
+                img_type: 'article'
+              }).then(res => {
+                console.log({
+                  fileImage: res.url,
+                  fileId: this.file.fileId
+                })
+                this.$api.updateArticleImage({
+                  fileImage: res.url,
+                  fileId: this.file.fileId
+                }).then(() => {
+                  this.$set(this.file, 'fileImage', res.url)
+                })
+              })
+          }
         },
         mounted() {
             this.$bus.$on('selectedFile', (file) => {
@@ -201,6 +242,7 @@
             width: 100%;
             border-top-left-radius: 3px;
             border-top-right-radius: 3px;
+            object-fit: contain;
           }
         }
 

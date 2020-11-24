@@ -1,4 +1,4 @@
-import {post, get, del, put} from './http'
+import { post, get, del, put, upload } from '@/plugins/modules/request'
 
 export const login = params => post('user/login', params, {
     showTip: true,
@@ -60,3 +60,12 @@ export const getArticleDetail = params => get('/file/detail', params)
 export const updateVisitorNum = params => put('/user/page-view', params)
 
 export const getVisitorNum = params => get('/user/page-view', params)
+
+export const uploadImage = (file, formData) => upload('/user/upload-image', {
+    file,
+    formData
+}, {
+    isShowLoading: true
+})
+
+export const updateArticleImage = params => post('/file/article-image', params)

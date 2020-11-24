@@ -9,7 +9,7 @@
 </template>
 
 <script>
-    import storage from './js/storage'
+    import storage from '@utils/storage'
     import NavHeader from '@/components/layout/NavHeader';
     import NavFooter from '@/components/layout/NavFooter';
 

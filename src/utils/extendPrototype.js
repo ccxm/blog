@@ -1,30 +1,35 @@
+/**
+ * 扩展原型链函数
+ */
+/* eslint-disable */
+
 // 下划线转驼峰
-String.prototype.toHump = function () {
-    return this.replace(/_(\w)/g, function(all, letter){
+String.prototype.toHump = function() {
+    return this.replace(/_(\w)/g, function(all, letter) {
         return letter.toUpperCase()
     })
 }
 
 // 驼峰转换下划线
-String.prototype.thLine = function () {
-    return this.replace(/([A-Z])/g,"_$1").toLowerCase();
+String.prototype.thLine = function() {
+    return this.replace(/([A-Z])/g, '_$1').toLowerCase()
 }
 
 // 数字前面加0
 String.prototype.addZero = function() {
-    if(parseInt(this) >= 10) {
+    if (parseInt(this) >= 10) {
         return this
     }
     return '0' + this
 }
 
 // 字符串数字转数字
-String.prototype.toNumber = function()  {
+String.prototype.toNumber = function() {
     return parseInt(this)
 }
 
-Object.deepCopy = function (obj) {
-   return JSON.parse(JSON.stringify(obj))
+Object.deepCopy = function(obj) {
+    return JSON.parse(JSON.stringify(obj))
 }
 
 /**
@@ -32,7 +37,7 @@ Object.deepCopy = function (obj) {
  * @return {string}
  */
 Date.prototype.format = function() {
-    const dateArr = [],timeArr = []
+    const dateArr = [], timeArr = []
     dateArr.push(this.getFullYear())
     dateArr.push((this.getMonth() + 1).toString().addZero())
     dateArr.push(this.getDate().toString().addZero())
@@ -43,9 +48,9 @@ Date.prototype.format = function() {
 }
 
 // 返回中文时间
-Date.prototype.localFormat = function () {
+Date.prototype.localFormat = function() {
     const format = this.format()
-    const str = format.replace(/-/,'年')
+    const str = format.replace(/-/, '年')
         .replace(/-/, '月')
         .replace(/ /, '日 ')
         .replace(/:/, '时')
@@ -70,7 +75,7 @@ Function.prototype.debounce = function(wait) {
 }
 
 // 节流
-Function.prototype.throttle = function (wait) {
+Function.prototype.throttle = function(wait) {
     const func = this
     let previous = 0
     return function() {

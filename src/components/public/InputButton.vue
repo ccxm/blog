@@ -8,7 +8,7 @@
 </template>
 
 <script>
-    import {pAddTag} from '../../js/http/param'
+    import {pAddTag} from '@api/param'
 
     export default {
         name: "InputButton",

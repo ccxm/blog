@@ -30,7 +30,7 @@
 <script>
     import FilePopover from "./FilePopover"
     import Folder from "./Folder"
-    import {pNewFolder, pNewFile, pDelFile, pDelFolder, pCopyFile, pCopyFolder} from './../../js/http/param'
+    import {pNewFolder, pNewFile, pDelFile, pDelFolder, pCopyFile, pCopyFolder} from '@api/param'
 
     export default {
         name: "Catalog",
