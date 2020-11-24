@@ -9,13 +9,16 @@ export const getFolderList = () => get('folder/folder-list')
 
 export const newFolder = params => post('folder/new-folder', params)
 
-export const deleteFolder = params => del('folder/folder', params)
+export const deleteFolder = params => del('folder/folder', params, {
+    showTip: true,
+    tipMsg: '删除文件夹成功，可通过回收站找回'
+})
 
 export const newFile = params => post('file/new-file', params)
 
 export const deleteFile = params => del('file/file', params, {
     showTip: true,
-    tipMsg: '删除成功'
+    tipMsg: '删除文件成功，可通过回收站找回'
 })
 
 export const copyFolder = params => post('folder/copy', params, {
