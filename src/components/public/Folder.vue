@@ -164,12 +164,10 @@
                 this.autoFocus()
             },
             onDelFolder() {
-                console.log('删除文件夹')
                 this.$bus.$emit('delFolder', this.folderItem.folderId)
             },
             onDelFile() {
                 console.log('删除文件')
-                console.log(this.curFile)
                 this.$bus.$emit('delFile', this.folderItem.folderId, this.curFile.fileId)
             },
             onCopyFolder() {
