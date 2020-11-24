@@ -47,7 +47,18 @@
             sliceList() {
                 console.log(typeof this.curPage, this.curPage)
                 return this.articleList.slice(this.pageSize * (this.curPage - 1), this.pageSize * this.curPage)
+            },
+            folderList() {
+              return this.$store.getters['folder/folderList']
             }
+        },
+        watch: {
+          folderList: {
+            handler() {
+              this.handlerFolderListChange()
+            },
+            immediate: true
+          }
         },
         methods: {
             getArticleList() {
@@ -83,20 +94,15 @@
             },
             selectFile(file) {
                 this.$router.push(`/preview?id=${file.fileId}`)
+            },
+            // 处理文件夹的变化
+            async handlerFolderListChange() {
+              await this.getArticleList()
+              const list = this.flatArray(this.folderList)
+              this.articleList.forEach(item => {
+                this.$set(item, 'parentFolderName', this.getParentFolderName(list, item.folderId).join('/'))
+              })
             }
-        },
-        created() {
-            this.$bus.$on('folderListChange', async (folderList) => {
-                await this.getArticleList()
-                const list = this.flatArray(folderList)
-                this.articleList.forEach(item => {
-                    this.$set(item, 'parentFolderName', this.getParentFolderName(list, item.folderId).join('/'))
-                })
-                // console.log(this.articleList)
-            })
-        },
-        destroyed() {
-          this.$bus.$off('folderListChange')
         }
     }
 </script>

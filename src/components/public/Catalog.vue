@@ -80,8 +80,8 @@
                 }
             },
             folderList: {
-                handler() {
-                    this.notifyFolderListChange()
+                handler(val) {
+                    this.$store.dispatch('folder/setFolderList', val)
                 },
                 immediate: true,
                 deep: true
@@ -232,9 +232,6 @@
             },
             changeSize() {
                 this.$emit('change')
-            },
-            notifyFolderListChange() {
-                this.$bus.$emit('folderListChange', this.folderList)
             }
         },
         mounted() {

@@ -5,7 +5,7 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import InstallPlugins from './plugins'
 import './style/font.css'
-import store from '@/store';
+import store from '@/store/index'
 
 Vue.config.productionTip = false
 Vue.use(InstallPlugins)
