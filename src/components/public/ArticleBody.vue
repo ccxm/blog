@@ -187,7 +187,7 @@
                 return
               }
               this.$api.uploadImage(file.raw, {
-                img_type: 'article'
+                img_type: 'bg'
               }).then(res => {
                 console.log({
                   fileImage: res.url,

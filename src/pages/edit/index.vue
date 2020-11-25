@@ -114,7 +114,7 @@
                 //     $vm.insertImg(`${$vm.config.imageUploader.imagePrefix}${res.data.data.url}`, res.data.data.url)
                 // })
                 this.$api.uploadImage(file, {
-                  type: 'article'
+                  img_type: 'article'
                 }).then(res => {
                   $vm.insertImg(`${$vm.config.imageUploader.imagePrefix}${res.url}`, res.url)
                 })

@@ -1,5 +1,8 @@
 <template>
     <div style="width: 98%">
+      <router-link :to="{ name: 'sort', path: '/sort/', params: {id: 1}}">
+        <div>111</div>
+      </router-link>
         <div class="card" style="width: 100%">
             <div class="content">
                 <span class="time-year">2020</span>

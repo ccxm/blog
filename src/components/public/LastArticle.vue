@@ -35,6 +35,12 @@
               this.handlerFolderListChange()
             },
             immediate: true
+          },
+          '$store.getters.folder.folderList': {
+            handler(val) {
+              console.log(33333333333333333333333, val)
+            },
+            immediate: true
           }
         },
         methods: {
