@@ -22,7 +22,9 @@ const httpInstance = axios.create({
 const deepCopy = json => JSON.parse(JSON.stringify(json))
 
 httpInstance.interceptors.request.use(config => {
-    config.headers['Authorization'] = dataStore.getToken() || ''
+    if (dataStore.getToken()) {
+        config.headers['Authorization'] = dataStore.getToken()
+    }
     if(!config.data) {
         config.data = {}
     }

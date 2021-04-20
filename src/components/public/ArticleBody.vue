@@ -189,16 +189,27 @@
               this.$api.uploadImage(file.raw, {
                 img_type: 'bg'
               }).then(res => {
-                console.log({
-                  fileImage: res.url,
-                  fileId: this.file.fileId
-                })
                 this.$api.updateArticleImage({
                   fileImage: res.url,
                   fileId: this.file.fileId
                 }).then(() => {
                   this.$set(this.file, 'fileImage', res.url)
                 })
+              })
+          },
+          // 监听localstorage的变化，实现页面之间的通讯
+          listenLocalStorage() {
+              window.addEventListener('storage', ev => {
+                if (ev.key === 'updateFile') {
+                  let fileInfo = localStorage.getItem('updateFile')
+                  if (!fileInfo) {
+                      return
+                  }
+                  fileInfo = JSON.parse(fileInfo)
+                  if (fileInfo.fileId === this.file.fileId) {
+                    this.getFile(this.file)
+                  }
+                }
               })
           }
         },
@@ -218,9 +229,11 @@
             } else {
               this.getArticleList()
             }
+            this.listenLocalStorage()
         },
         destroyed() {
             this.$bus.$off('selectedFile')
+            window.removeEventListener('storage')
         },
     }
 </script>

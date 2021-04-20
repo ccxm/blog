@@ -98,21 +98,7 @@
                     this.file = res.data
                 }).catch()
             },
-            uploadImg:function ($vm,file) {
-                // 添加图片
-                // 两个参数 第一个是图片访问路径 第二个是文件名 按照如下类似的方法即可向编辑区插入上传好的图片了
-                // const data = new FormData();
-                // data.append('file', file)
-                // data.append('test', 'hello')
-                // axios.post('http://127.0.0.1:3006/api/user/upload-image', data, {
-                //     headers: {
-                //         'Content-type': 'multipart/form-data',
-                //         'Authorization': dataStore.getToken() || '',
-                //         'type': 'bg'
-                //     }
-                // }).then(res => {
-                //     $vm.insertImg(`${$vm.config.imageUploader.imagePrefix}${res.data.data.url}`, res.data.data.url)
-                // })
+            uploadImg:function ($vm, file) {
                 this.$api.uploadImage(file, {
                   img_type: 'article'
                 }).then(res => {
@@ -124,6 +110,10 @@
                 pUpdateFile.tagList = this.selectTag
                 this.$api.updateFie(pUpdateFile)
                 this.renameFile()
+                localStorage.setItem('updateFile', JSON.stringify({
+                  fileId: pUpdateFile.fileId,
+                  timestamp: new Date().valueOf()
+                }))
             },
             renameFile() {
                 pRenameFile.newFileName = this.fileName

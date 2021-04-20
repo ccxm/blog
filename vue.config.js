@@ -7,11 +7,11 @@ module.exports = {
         proxy: {
             // proxy all requests starting with /api to jsonplaceholder
             '/api': {
-                target: 'https://blog.cxmmao.com',   //代理接口
+                target: 'https://blog.cxmmao.com/api',   //代理接口
                 changeOrigin: true,
-                // pathRewrite: {
-                //     '/api': '/'
-                // }
+                pathRewrite: {
+                    '/api': '/'
+                }
             },
             '/md': {
                 target: 'https://blog.cxmmao.com/',   //代理接口
