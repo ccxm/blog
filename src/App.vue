@@ -1,10 +1,12 @@
 <template>
-    <div id="app">
-      <nav-header v-if="showNav"/>
-        <div class="app-container" :class="{'edit-container': !showNav}">
-          <router-view />
+    <div id="layout">
+      <nav-header id="header" v-if="showNav"/>
+        <div id="layout-body">
+          <main id="main" class="app-container" :class="{'edit-container': !showNav}">
+            <router-view />
+          </main>
+          <nav-footer id="footer" v-if="showNav"/>
         </div>
-      <nav-footer v-if="showNav"/>
     </div>
 </template>
 
@@ -58,5 +60,34 @@
 
     .edit-container {
       margin-top: 0;
+    }
+
+    #layout {
+      display: flex;
+      flex-direction: column;
+      width: 100vw;
+      height: 100vh;
+      background: $default-background;
+    }
+
+    #header {
+      flex-shrink: 0;
+      box-shadow: 0 10px 10px rgba(0,0,0,0.05), 0 0 1px rgba(0,0,0,0.1);
+      z-index: 999;
+    }
+
+    #layout-body {
+      flex-grow: 2;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #footer {
+      flex-shrink: 0;
+    }
+
+    #main {
+      flex-grow: 2;
     }
 </style>

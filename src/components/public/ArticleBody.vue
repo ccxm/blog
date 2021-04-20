@@ -155,7 +155,7 @@
                     this.file = res.lastArticleList[0]
                     this.getFile(this.file)
                     this.$router.push({
-                      query: merge(this.$route.query,{id: this.file.fileId})
+                      query: merge(this.$route.query,{ id: this.file.fileId })
                     })
                 })
             },
