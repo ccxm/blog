@@ -1,24 +1,24 @@
 <template>
     <div class="c-container container-table">
         <el-row style="width: 100%">
-            <el-col :span="6" :md="7" :lg="6" class="yx-center" >
+            <el-col :span="6" :md="7" :lg="6" :xs="24" class="yx-center" v-if="curWidth > colMap.sm">
                 <user-info />
                 <catalog :is-mid="false" v-if="!showFullCatalog" :is-full="showFullCatalog" @change="showFullCatalog = !showFullCatalog" :is-mid-show="showFullCatalog"/>
                 <tag-container v-if="showFullCatalog" />
             </el-col>
-            <el-col v-if="isPreview" :span="18" class="yx-center">
+            <el-col v-if="isPreview" :span="18" :xs="24" class="yx-center">
                 <article-body :is-preview="isPreview"/>
             </el-col>
-            <el-col v-else :span="12" :md="17" :lg="12" class="yx-center">
+            <el-col v-else :span="12" :md="17" :lg="12" :xs="24" class="yx-center">
                 <catalog :is-mid="true" v-if="showFullCatalog" :is-full="showFullCatalog" :is-sort-page="isSortPage" @change="showFullCatalog = !showFullCatalog" :is-mid-show="showFullCatalog"/>
                 <archive-container v-if="showArchive"/>
                 <article-body v-if="showArticle"/>
                 <tag-container v-if="isTagPage" :show-full="true"/>
             </el-col>
-            <el-col :span="6" class="yx-center hidden-md-and-down" v-if="!isPreview">
-                <work-show />
+            <el-col :span="6" :xs="24" class="yx-center hidden-md-and-down" v-if="!isPreview">
+                <work-show v-if="curWidth > colMap.sm"/>
                 <last-article />
-                <tag-container v-if="!isTagPage && !showFullCatalog" />
+                <tag-container v-if="!isTagPage && !showFullCatalog && (curWidth > colMap.sm)" />
             </el-col>
         </el-row>
     </div>
@@ -82,6 +82,13 @@
         /*border: 1px solid black;*/
         width: 80%;
         margin-bottom: 160px;
+    }
+
+    @media only screen and (max-width: 767px) {
+      .container-table {
+        width: 95%;
+        margin-bottom: 30px;
+      }
     }
 
 </style>

@@ -22,3 +22,7 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## 优化清单
+- resize事件用防抖事件
+- 移动端使用vConsole

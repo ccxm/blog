@@ -11,9 +11,10 @@
 </template>
 
 <script>
-    import storage from '@utils/storage'
+    import storage from '@/utils/storage'
     import NavHeader from '@/components/layout/NavHeader';
     import NavFooter from '@/components/layout/NavFooter';
+    import { debounce } from '@utils/utils';
 
     export default {
         name: 'App',
@@ -36,6 +37,36 @@
         },
         mounted() {
             this.$api.updateVisitorNum({userId: storage.get('userId')})
+        },
+        methods: {
+          onResize() {
+            console.log('onResize')
+            const width = window.screen.width
+            const col = {
+              Col: null,
+              Width: width
+            }
+            if (width >= 1920) {
+              col.Col = 'xl'
+            } else if (width >= 1200){
+              col.Col = 'lg'
+            } else if (width >= 992){
+              col.Col = 'md'
+            } else if (width >= 768){
+              col.Col = 'sm'
+            } else {
+              col.Col = 'xs'
+            }
+            this.$store.dispatch('resize/setColInfo', col)
+          }
+        },
+        created() {
+          this.resizeFunc = debounce(this.onResize, 300)
+          window.addEventListener('resize', this.resizeFunc)
+          this.onResize()
+        },
+        destroyed() {
+          window.removeEventListener('resize', this.resizeFunc)
         }
     }
 </script>

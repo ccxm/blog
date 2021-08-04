@@ -30,3 +30,34 @@ export const deleteToken = () => {
 export const getToken = () => {
     return localStorage.getItem('token')
 }
+
+// 节流
+export function throttle(func, wait = 500) {
+    let timer = null
+    return function () {
+        if (timer) {
+            return
+        }
+        const that = this  // 保留函数的原来的调用者
+        const args = arguments
+        timer = setTimeout(() => {
+            func.apply(that, args) // 调用函数
+        }, wait)
+    }
+}
+
+// 防抖
+export function debounce(func, wait = 500) {
+    let timer = null
+    return function () {
+        if (timer) {
+            clearInterval(timer)
+        }
+        const that = this  // 保留函数的原来的调用者
+        const args = arguments
+        timer = setTimeout(() => {
+            func.apply(that, args) // 调用函数
+        }, wait)
+    }
+}
+

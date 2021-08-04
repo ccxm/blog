@@ -6,6 +6,7 @@ import 'nprogress/nprogress.css'
 import InstallPlugins from './plugins'
 import './style/font.css'
 import store from '@/store/index'
+import Resize from '@/mixins/Resize';
 
 Vue.config.productionTip = false
 Vue.use(InstallPlugins)
@@ -19,15 +20,12 @@ router.afterEach(() => {
   NProgress.done()
 })
 
+Vue.mixin(Resize)
+
 const vue = new Vue({
   router,
   store,
-  render: h => h(App),
-  mounted() {
-    console.log(this.$store.state.agree)
-    this.$store.dispatch('agree/changeState', true)
-    console.log(this.$store.state.agree.isAgree)
-  }
+  render: h => h(App)
 }).$mount('#app')
 
 export default vue

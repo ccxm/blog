@@ -11,6 +11,7 @@
                   <span>{{Math.ceil(value.length / readSpeed)}} 分钟 读完 (大约 {{value.length}} 个字)</span>
                 </div>
               <el-upload
+                  v-if="curWidth > colMap.md"
                   @click.stop.native
                   class="upload-demo"
                   :auto-upload="false"
@@ -97,6 +98,7 @@
                 readSpeed: 350,
                 value: '',
                 isEntry: true, // 是否是进入路由
+                listenFunc: null
             }
         },
         watch: {
@@ -198,19 +200,17 @@
               })
           },
           // 监听localstorage的变化，实现页面之间的通讯
-          listenLocalStorage() {
-              window.addEventListener('storage', ev => {
-                if (ev.key === 'updateFile') {
+          listenLocalStorage(ev) {
+              if (ev.key === 'updateFile') {
                   let fileInfo = localStorage.getItem('updateFile')
                   if (!fileInfo) {
-                      return
+                    return
                   }
                   fileInfo = JSON.parse(fileInfo)
                   if (fileInfo.fileId === this.file.fileId) {
                     this.getFile(this.file)
                   }
-                }
-              })
+              }
           }
         },
         mounted() {
@@ -229,11 +229,12 @@
             } else {
               this.getArticleList()
             }
-            this.listenLocalStorage()
+            this.listenFunc = this.listenLocalStorage
+            window.addEventListener('storage', this.listenFunc)
         },
         destroyed() {
             this.$bus.$off('selectedFile')
-            window.removeEventListener('storage')
+            window.removeEventListener('storage', this.listenFunc)
         },
     }
 </script>
@@ -333,5 +334,18 @@
         span {
             font-weight: lighter;
         }
+    }
+
+    @media only screen and (max-width: 767px) {
+      .article {
+        width: 100%;
+
+        .article-bg-img {
+          height: 200px;
+          background-repeat: no-repeat;
+          background-size: contain;
+          background-position: center center;
+        }
+      }
     }
 </style>

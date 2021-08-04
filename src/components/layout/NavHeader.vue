@@ -2,14 +2,14 @@
     <div class="header x-center default-hover">
         <div class="y-center c-container">
             <el-row class="c-row y-center">
-                <el-col :span="3" class="yx-center nav-logo">
+                <el-col :span="3" :xs="24" class="yx-center nav-logo" >
                     <span class="nav-title nav-item">丑小喵</span>
 <!--                  <img class="nav-title nav-item" src="./../../assets/image/logo.png">-->
                 </el-col>
-                <el-col :span="10" class="y-center">
+                <el-col :span="10" :xs="16" class="y-center">
                     <span class="nav-item" v-for="(item,index) in urlList" :key="index" @click="jump(item.path)">{{item.title}}</span>
                 </el-col>
-                <el-col :span="4" :offset="7" class="y-center header--right">
+                <el-col :span="4" :xs="8" :offset="curWidth > colMap.sm ? 7 : 0" class="y-center header--right">
                     <div class="y-center">
                         <a v-if="!isLogin" class="nav-item nav-icon" @click="showLogin = true">
                             <i class="fas fa fa-sign-in login-icon" aria-hidden="true"></i>
@@ -92,6 +92,7 @@
         },
         mounted() {
             this.isLogin = this.getToken()
+            console.log(this.colMap, this.curCol, this.curWidth)
         }
     }
 </script>
@@ -114,6 +115,28 @@
         height: 60px;
         width: 100%;
         box-shadow: 0 4px 10px rgba(0,0,0,0.05), 0 0 1px rgba(0,0,0,0.1);
+    }
+
+    @media only screen and (max-width: 767px){
+      .header {
+        height: auto;
+        .c-container {
+          width: 100%;
+        }
+
+        .c-row {
+          display: block;
+
+          .nav-logo {
+            justify-content: center;
+          }
+
+          .header--right {
+            //padding-bottom: 5px;
+            padding-right: 0;
+          }
+        }
+      }
     }
 
     .nav-logo {

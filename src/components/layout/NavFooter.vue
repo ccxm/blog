@@ -70,6 +70,7 @@
 
         .foot-right {
             padding-right: 10px;
+            font-size: 18px;
             .fab {
               color: #363636;
             }

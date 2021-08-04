@@ -26,6 +26,7 @@
                 layout="prev, pager, next"
                 prev-text="上一页"
                 next-text="下一页"
+                :pager-count="curWidth > colMap.md ? 10 : 4"
                 :page-size="pageSize"
                 :current-page.sync="curPage"
                 :total="articleList.length">
@@ -191,6 +192,7 @@
 
         .time-year {
             display: block;
+            font-size: 16px;
         }
 
         .file-name {

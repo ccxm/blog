@@ -63,11 +63,8 @@ const formatNickName = (nickName) => {
  * 人性化时间处理 传入时间戳
  */
 const beautifyTime = (date) => {
-    console.log(date)
     const timestamp = new Date(date).valueOf() / 1000
-    console.log(timestamp)
     const mistiming = Math.round(new Date() / 1000) - timestamp
-    console.log(mistiming)
     const arrr = ['年', '个月', '星期', '天', '小时', '分钟', '秒']
     const arrn = [31536000, 2592000, 604800, 86400, 3600, 60, 1]
     for (let i = 0; i <= 6; i++) {
